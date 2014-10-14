@@ -1,31 +1,52 @@
-## Poker game (IT KMITL Project 2013)
-### Authur
-- Kittikorn Prasertsak	(56070006)
-- Khemtat Lengpaiboon	(56070009)
-- Tanawat Gajaseni	(56070057)
+## Android Code
 
-### How to Play
-		--- Example the screen in game ---
+### All in one
+*Notification with show
 
-    	==============Poker Start==============c
-    	[+] Input number of players (1-5): 2 *
-    	Player 1 -- input your card: TD JD QD KD AD *
-    	Player 2 -- input your card: 8H 8H 8H 4S 4S *
-    	==============Result==============
-    	Player 1 have: Royal straight flush
-    	Player 2 have: Full house
-    	The Winner is player: 1
+        //Notification
+        Button cmdNoti = (Button)findViewById(R.id.button2);
+        cmdNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(MainActivity.this,UpdateActivity.class);
+                PendingIntent pI = PendingIntent.getActivity(MainActivity.this, 0, i, 0);
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
+                NotificationCompat.Builder nb = new NotificationCompat.Builder(MainActivity.this)
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setLargeIcon(bmp).setTicker("มีอัพเดตใหม่")
+                        .setContentTitle("Android L จ้า")
+                        .setContentText("Google มาแว้วจ้าาาาาาาาาาา")
+                        .setContentIntent(pI).setAutoCancel(true);
+                Notification n =  nb.build();
+                nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                nManager.notify(NOTIFICATION_ID,n);
+            }
+        });
 
-*Your input
+*Message Dialog
 
-1. You have to input number of players.
-2. Input your card (str type)
- 
- 	Example : 2H 4S 5C 6D 7D
-		Let's describe our card(s). so, in that case, we will used '2H'
-		<br>'2' is card rank and 'H' mean 'Heart' (poker symbol)
-	
-	[+] The order of poker symbols:
-		<br>"S"pades, "H"earts, "D"iamonds, "C"lubs.
+        //Message Dialog
+        final AlertDialog.Builder dia = new AlertDialog.Builder(this);
+        Button cmd = (Button) findViewById(R.id.button2);
+        cmd.setOnClickListener(new View.OnClickListener() {
+                                   public void onClick(View v) {
+                                       dia.setTitle("Hello");
+                                       dia.setMessage("World");
+                                       dia.setNegativeButton("No", null);
+                                       dia.setPositiveButton("Yes", new AlertDialog.OnClickListener()
+                                       {
+                                           public void onClick(DialogInterface dialog,int arg1)
+                                           {
+                                               String a = "Hello";
+                                               String b = "Pame";
+                                               Toast.makeText(MainActivity.this,"บันทึกข้อมูลแล้วจ้า"+b,Toast.LENGTH_LONG).show();
+                                           }
+                                                                                  });
+                                       dia.show();
+                                   }
+                               }
+        );
 
-3. Let's see who is win this game !
+*Toast
+                
+`        //Toast.makeText(MainActivity.this, "สวัสดี", Toast.LENGTH_LONG).show();`
